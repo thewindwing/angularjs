@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myApp" ng-controller="ctr">
+<!--<button ng-dblclick="fn()">双击事件</button>-->
+<!--事件对象必须以参数的形式传递过去才可以，否则返回undefined-->
+<button ng-dblclick="fn($event)">双击事件</button>
+<script src="angular.min.js"></script>
+<script>
+    angular.module('myApp',[])
+            .controller('ctr',['$scope',function($scope){
+                $scope.fn=function(e){
+//                    console.log(e);//undefined
+                    console.log(e);//MouseEvent返回事件对象
+                };
+
+            }])
+
+</script>
+</body>
+</html>

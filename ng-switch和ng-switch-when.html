@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myApp" ng-controller="ctr">
+<div ng-switch="num">
+    <button ng-click="num=1">按钮1</button>
+    <button ng-click="num=2">按钮2</button>
+    <button ng-click="num=3">按钮3</button>
+    <div ng-switch-when="1">按钮1内容</div>
+    <div ng-switch-when="2">按钮2内容</div>
+    <div ng-switch-when="3">按钮3内容</div>
+</div>
+<script src="angular.min.js"></script>
+<script>
+    /*
+    ng-switch和ng-switch-when是一对指令 类似于switch-case语句
+     常用于多个选项卡的显示和隐藏
+     */
+    angular.module('myApp',[])
+            .controller('ctr',['$scope',function($scope){
+                $scope.num=1;
+            }])
+</script>
+</body>
+</html>

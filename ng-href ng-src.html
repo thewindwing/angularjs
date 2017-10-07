@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myApp" ng-controller="ctr">
+<!--<img src="{{src}}" alt="">-->
+<!--由于angularJS的引入在img下面，所以会出现404错误-->
+<!--解决办法-->
+<img ng-src="{{src}}">
+<!--此时浏览器解析时，不认识ng-src,直接跳过，然后angular认识，再解析渲染，所以不会报错-->
+
+
+<!--<a href="{{href}}">百度</a>-->
+<!--设置等待时间再跳转，会显示跳转迟钝-->
+<a ng-href="{{href}}">百度</a>
+<!--这样在时间未到之前不是链接，当时间到了才可以点击跳转，防止用户点击空链接-->
+
+<script src="angular.min.js"></script>
+<script>
+    angular.module('myApp',[])
+            .controller('ctr',['$scope','$timeout',function($scope,$timeout){
+                $scope.src='ps1b.jpg';
+                $timeout(function(){
+                    $scope.href='http://www.baidu.com';
+                },5000);
+            }])
+</script>
+</body>
+</html>

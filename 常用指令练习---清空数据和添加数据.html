@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myApp" ng-controller="ctr">
+<ul>
+    <li ng-repeat="item in list track by $index">
+        <a href="#" ng-bind="item.title"></a>
+        <div ng-bind="item.description"></div>
+        <br>
+    </li>
+</ul>
+<div ng-show="list.length==0">暂无数据</div>
+<button ng-click="list.length=0">清空数据</button>
+<button ng-click="add()">添加数据</button>
+
+<script src="angular.min.js"></script>
+<script>
+//    清空数据：数组长度为0，显示隐藏的div
+//    添加数据：向数组添加一项
+    angular.module('myApp',[])
+            .controller('ctr',['$scope',function($scope){
+                $scope.list=[
+                    {
+                        id:'1',
+                        title:'有人在微信QQ上拉你搞投资？那都是骗子！',
+                        description : '喜欢炒股的朋友或许经常在微信或者QQ收到各种“业务员”的推广，有的介绍老师给你，有的介绍私募给你，有的是亲自操刀上阵，通常情况下是在操作获利之后五五分成，在操作一段时间之后，“业务员”会告诉你最近股市不好做，不好赚钱，而“我们有新的业务”，可以快速地获得利润，再给你发一些高收益的截图。'
+                    },
+                    {
+                        id:'2',
+                        title:'女子被"男友"骗150万 相处3年不知对方系闺蜜假扮',
+                        description : '时报讯 今年2月，杭州市滨江警方接到一起报警，报警人林芬（化名）称2014年至2017年间，自己被男友高鹏（化名）骗了共计150多万元。近日，民警抓获了该案嫌疑人，一看，这高鹏啊，不仅是个女的，还是林芬的闺蜜。'
+                    }
+                ];
+                $scope.add=function(){
+                    var item={
+                                id:'3',
+                                title:'后添加数据！',
+                                description : '已是悬崖百丈冰，犹有花枝俏！'
+                            };
+                    $scope.list.push(item);
+                }
+            }])
+</script>
+</body>
+</html>

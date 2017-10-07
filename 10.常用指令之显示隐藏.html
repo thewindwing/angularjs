@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs demo</title>
+</head>
+<body ng-app="myApp" ng-controller="demoCtrl">
+	<!--
+		ng-show="布尔值" 控制元素的显示和隐藏
+
+		ng-hide="布尔值" 控制元素的显示和隐藏
+
+		ng-if="布尔值" 控制元素的显示和隐藏 true 显示 false 隐藏
+
+		ng-show ng-hide 是通过样式的方式达到显示隐藏元素的目的
+
+		ng-if 是通过增加和删除DOM节点的方式达到显示隐藏元素的目的
+
+	-->
+
+	<!-- <input type="checkbox" ng-model="isShow">
+
+	<div ng-if="isShow">1111</div> -->
+
+	<button ng-click="isShow = true">按钮1</button>
+	<button ng-click="isShow = false">按钮2</button>
+	<!--<div ng-hide="isShow">按钮2内容</div>-->
+
+	<div ng-show="isShow">按钮1对应的内容</div>
+	<div ng-show="!isShow">按钮2对应的内容</div>
+
+	<script src="node_modules/angular/angular.js"></script>
+	<script>
+		angular.module('myApp',[])
+
+			.controller('demoCtrl',['$scope',function($scope){
+
+				$scope.isShow = true;
+
+			}])
+	</script>
+</body>
+</html>

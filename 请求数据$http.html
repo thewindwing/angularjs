@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myApp" ng-controller="ctr">
+<ul ng-repeat="item in result track by $index">
+    <li>{{item.name}} ===> {{item.age}}
+    <div ng-bind-html="item.description"></div>
+    </li>
+</ul>
+
+<script src="angular.min.js"></script>
+<script src="angular-sanitize.min.js"></script>
+<script>
+    //引入sanitize文件后（先依赖），就可以用ng-bind-html指令解析后台传过来的HTML标签
+    angular.module('myApp',['ngSanitize'])
+            .controller('ctr',['$scope','$http',function($scope,$http){
+           /*     $http({
+                    url:'./test.json',//请求地址
+                    method:'post',//请求方法
+//                    params:{a:1,b:2}//get请求的参数
+                    data:{a:1,b:2}
+                }).then(function(res){
+                    console.log(res);
+                    $scope.result=res.data;
+                },function(){
+                    //失败回调
+                })*/
+
+
+            /*
+//            get请求
+            $http.get('./test.json',{params:{a:1,b:2}}).then(function(res){
+                   console.log(res);
+                   $scope.result=res.data;
+               });*/
+
+//                post请求
+                $http.post('./test.json',{a:1,b:2}).then(function(res){
+                    console.log(res);
+                    $scope.result=res.data;
+                })
+            }]);
+</script>
+</body>
+</html>

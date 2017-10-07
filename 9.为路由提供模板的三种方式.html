@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp">
+
+	<a href="#!/index">首页</a>
+	<a href="#!/list">列表页</a>
+
+	<div ng-view></div>
+
+	<!--
+		路由就是用来配置页面之间的跳转关系的 配置锚点与页面之间的对应关系
+
+		在angularjs中路由并没有集成在angular.js文件中
+
+		路由作为一个单独的模块存在 如果要使用路由 我们需要将路由模块作为主模块的依赖模块
+
+		主模块 | 入口模块 == 管理页面的那个模块
+
+		angularjs中模块依赖的步骤
+
+			1.将要依赖的模块文件引入到页面中
+
+			2.将模块的名字写在主模块的第二个参数中
+
+				angular-route  =>  ngRoute
+
+		路由配置的语法:
+
+			模块对象.config(function($routeProvider){
+
+				// 路由的具体配置要写在这个回调函数中
+				// $routeProvider 路由配置对象 名字暂时不能改
+				// when 当...时候
+
+				$routeProvider.when("锚点",{
+					templateUrl:'模板文件路径 相对路径'
+				})
+
+				<div ng-view></div>
+
+				angularjs会将获取到的模板文件内容放在页面中有ng-view指令的元素中
+
+			})
+
+			angularjs要求 锚点值必须以 / 开头 在路由配置中使不需要写#号
+
+			当我们使用了路由以后 就不需要直接在页面中写ng-controller指令
+
+	-->
+
+	<script src="node_modules/angular/angular.min.js"></script>
+	<script src="node_modules/angular-route/angular-route.min.js"></script>
+	<script>
+
+		var app = angular.module('myApp',['ngRoute']);
+
+		app.config(function($routeProvider){
+
+			$routeProvider
+				.when('/index',{
+					templateUrl:'./tpl/index.html', // localhost
+					// template:'<div>我是首页</div>', // file | localhost
+					// controller:'indexCtrl',
+					templateUrl:'indexTpl' // file | localhost
+				})
+				.when('/list',{
+					templateUrl:'./tpl/list.html',
+					// template:'<div>我是列表页</div>',
+					// controller:'listCtrl',
+					templateUrl:'listTpl'
+				})
+				.otherwise('/index')
+
+				/*
+					1.页面一打开 地址栏中没有锚点 页面中的坑是空的
+
+					2.当用户输入一个不存在的网址的时候
+
+				 */
+
+		});
+
+		app.controller('indexCtrl',function($scope){
+			$scope.msg = "我是首页msg"
+		})
+
+		app.controller('listCtrl',function($scope){
+			$scope.msg = "我是列表页msg"
+		})
+
+
+	</script>
+<!-- 	<script id="indexTpl" type="text/ng-template">
+	<div>我是首页 indexTpl</div>
+</script>
+<script id="listTpl" type="text/ng-template">
+	<div>我是列表页 listTpl</div>
+</script> -->
+</body>
+</html>

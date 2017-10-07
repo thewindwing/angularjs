@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myApp" ng-controller="ctr">
+<h2>在点击提交按钮后将选中项找出来</h2>
+<label ng-repeat="item in balls track by $index">
+    <input type="checkbox" ng-model="item.isChecked">
+    <span>{{item.name}}</span>
+</label>
+<br>
+<br>
+<button ng-click="submitForm()">提交</button>
+<ul>
+    <li ng-repeat="item in result track by $index">{{item.name}}</li>
+</ul>
+
+<script src="angular.min.js"></script>
+<script>
+    angular.module('myApp',[])
+            .controller('ctr',['$scope',function($scope){
+                $scope.balls=[
+                    {
+                        name:'足球',
+                        isChecked : false // 代表当前的数据是否是选中的
+                    },
+                    {
+                        name:'篮球',
+                        isChecked : false
+                    },
+                    {
+                        name:'橄榄球',
+                        isChecked : false
+                    },
+                    {
+                        name:'排球',
+                        isChecked : false
+                    },
+                    {
+                        name:'乒乓球',
+                        isChecked : false
+                    }
+                ];
+
+               $scope.submitForm=function(){
+                   $scope.result=[];
+                    angular.forEach($scope.balls,function(value,index){
+                       if(value.isChecked){
+                           $scope.result.push(value);
+                       }
+                    });
+//                   console.log($scope.result);
+                }
+            }])
+</script>
+</body>
+</html>
