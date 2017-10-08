@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myApp" ng-controller="ctr">
+<div my-dir="red" title="1">123456</div>
+<i my-dir="blue">15ddff</i>
+<div my-dir></div>
+
+<script src="../node_modules/angular/angular.min.js"></script>
+<script>
+    angular.module('myApp',[])
+            .directive('myDir',[function(){
+                return {
+                    transclude:true,
+                    template:'<span ng-transclude></span><button ng-click="clickFn()">{{msg}}</button>',//将模版内容添加到自定义指令所在标签内
+                   link:function(scope,element,attributes){
+                       console.log(element);
+                       element.css('background',attributes.myDir);//element是自定义指令所在的元素
+                       console.log(attributes);
+//attributes是元素的所有属性集合
+                       scope.msg='我是指令中的msg';
+                       //scope向指令的模版区域暴露数据
+                       scope.clickFn=function(){
+                           alert(1);
+                       }
+                   }
+                }
+            }])
+            .controller('ctr',[function(){
+
+            }])
+</script>
+</body>
+</html>

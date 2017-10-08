@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./node_modules/swiper/dist/css/swiper.css">
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+        .swiper-container img{
+            width:100%;
+        }
+    </style>
+</head>
+<body ng-app="myApp" ng-controller="ctr">
+
+<div class="swiper-container">
+    <div class="swiper-wrapper" >
+        <div class="swiper-slide" ng-repeat="item in imgs" ng-repeat-after="getSwiper()"><img ng-src="{{item}}"></div>
+    </div>
+    <!-- 导航按钮 -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>
+
+<script src="./node_modules/angular/angular.min.js"></script>
+<script src="./node_modules/swiper/dist/js/swiper.js"></script>
+<script>
+    //scope：向指令的模版区域暴露数据
+//    scope：true 指令具有单独的作用域
+//    scope：false 默认 指令没有作用域，作用域为指令所在标签的作用域或控制器的作用域
+//    ng-repeat指令执行时，会产生一个单独的作用域
+//    attributes：是一个对象，返回指令所在元素身上的所有属性集合
+//    element：指令所在的元素
+
+    angular.module('myApp',[])
+            .directive('ngRepeatAfter',[function(){
+                return {
+                    link:function(scope,element,attributes){
+                        console.log(element,attributes,scope);
+                        if(scope.$last){//是最后一次循环
+                            eval('scope.'+attributes.ngRepeatAfter);  //把插件写在控制器中，是为了同样可以使用别的插件，如果写在这，只能用一个插件
+//                            eval（）方法可以将字符串当成JS代码来执行
+                        }
+                    }
+                }
+            }])
+            .controller('ctr',['$scope',function($scope){
+
+//                当页面加载时，ng-repeat还没有加载完成swiper-slide，所以轮播图无效
+                $scope.imgs=['images/1.jpg','images/2.jpg','images/3.jpg'];
+               $scope.getSwiper= function (){
+                   var mySwiper = new Swiper ('.swiper-container', {
+                       nextButton: '.swiper-button-next',
+                       prevButton: '.swiper-button-prev'
+                   })
+                }
+            }])
+</script>
+</body>
+</html>

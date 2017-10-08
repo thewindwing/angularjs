@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app='myApp' ng-controller='demoCtrl'>
+<input type="text" ng-model="val">{{tips}}
+
+<script src='../node_modules/angular/angular.js'></script>
+<script>
+    angular.module('myApp', [])
+            .controller('demoCtrl', ['$scope', function ($scope) {
+                $scope.val='初始值';//不设置下面会报错
+                // 监控数据的变化
+                // 1.要监控的数据
+                // 2.只要数据发生变化 就会执行回调函数
+                // newValue 用户输入的最新的值
+                // oldValue 上一次用户输入的内容
+                // 页面一上来的时候 回调函数首先会执行一次
+                $scope.$watch('val',function(newValue,oldValue){
+//                    console.log(newValue,oldValue);
+                    if(newValue.length>10){
+                        $scope.tips='字符长度大于10';
+                    }else{
+                        $scope.tips='字符长度小于10';
+                    }
+                })
+
+            }])
+</script>
+</body>
+</html>

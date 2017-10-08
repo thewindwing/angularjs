@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myApp" ng-controller="ctr">
+<my-header><i>我是标签内部的内容</i></my-header>
+
+<script src="../node_modules/angular/angular.min.js"></script>
+<script>
+    angular.module('myApp',[])
+            .directive('myHeader',[function(){
+                return {
+                    templateUrl:'myHeaderTpl',//将模版内容增加到my-header标签内了，标签内容被覆盖
+                    replace:true,//将自定义标签本身删掉
+                    transclude:true//将自定义标签内容保留在ng-transclude指令中，只需要把改指令放到想要显示的位置即可
+                }
+            }])
+            .controller('ctr',['$scope',function($scope){
+
+            }])
+</script>
+<script type="text/ng-template" id="myHeaderTpl">
+    <h2>这是一个myHeader标签 <span ng-transclude></span></h2>
+</script>
+</body>
+</html>

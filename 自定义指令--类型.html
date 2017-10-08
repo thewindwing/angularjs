@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs demo</title>
+</head>
+<body ng-app="myApp" ng-controller="demoCtrl">
+
+	<my-dir>我是标签指令</my-dir>
+	<div my-dir>我是属性指令</div>
+	<div class="my-dir">我是样式指令</div>
+	<!-- directive:my-dir 我是注释指令 -->
+
+	<script src="node_modules/angular/angular.js"></script>
+	<script>
+
+		/*
+			在angularjs中 自定义指令是有类型
+
+				标签指令 E element
+
+				属性指令 A attributes
+
+				样式指令 C class
+
+				注释指令 M comment
+
+					注释指令需要配合replace:true一起使用
+
+		*/
+
+		angular.module('myApp',[])
+
+			.directive('myDir',[function(){
+				return {
+					restrict:'EACM',
+					template:'<button ng-transclude></button>',
+					transclude:true,
+					replace:true
+				}
+			}])
+
+			.controller('demoCtrl',['$scope',function($scope){
+
+				
+
+			}])
+	</script>
+</body>
+</html>
