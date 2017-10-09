@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="myApp">
+<a href="#!/index">首页</a>
+<a href="#!/list">列表页</a>
+
+<div ng-view></div>
+
+<script src="angular.min.js"></script>
+<script src="angular-route.min.js"></script>
+
+<script>
+    var app=angular.module('myApp',['ngRoute']);
+            app.config(function($routeProvider){
+
+                $routeProvider
+                        .when('/index',{
+                    templateUrl:'indexTpl',
+                    controller:'indexCtrl'
+                })
+                        .when('/list',{
+                    templateUrl:'listTpl',
+                    controller:'listCtrl'
+                })
+                        .when('/article/:id/:title',{
+                    templateUrl:'articleTpl',
+                            controller:'articleCtrl'
+                })
+                        .otherwise('/index');
+    });
+
+    app.controller('indexCtrl',['$scope',function($scope){
+        $scope.index='index';
+    }]).controller('listCtrl',['$scope',function($scope){
+        $scope.list='1';
+    }]).controller('articleCtrl',['$scope','$routeParams',function($scope,$routeParams){
+//       console.log($routeParams)
+        $scope.index=$routeParams.id;
+        $scope.title=$routeParams.title;
+    }]);
+</script>
+
+<script type="text/ng-template" id="indexTpl">
+    <div>我是首页{{index}}</div>
+</script>
+
+<script type="text/ng-template" id="listTpl">
+    <ul>
+        <li><a href="#!/article/1/我是标题1">新闻1</a></li>
+        <li><a href="#!/article/2/我是标题2">新闻2</a></li>
+        <li><a href="#!/article/3/我是标题3">新闻3</a></li>
+    </ul>
+</script>
+
+<script type="text/ng-template" id="articleTpl">
+    <div>详情页{{index}}
+    <span>{{title}}</span>
+    </div>
+</script>
+</body>
+</html>
