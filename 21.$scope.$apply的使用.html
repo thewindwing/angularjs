@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs demo</title>
+</head>
+<body ng-app="myApp" ng-controller="demoCtrl">
+
+	<input type="text" ng-model="val">
+
+	<!-- <button ng-click="clickFn()">设置值</button> -->
+	<button onclick="clickFn()">设置值</button>
+
+	<script src="node_modules/angular/angular.js"></script>
+	<script>
+
+		/*
+			当通过原生JS将angularjs中的数据做了改变以后,angularjs不知道,所以需要调用$scope.$apply()方法通知angularjs 更新html页面
+
+		*/
+
+		angular.module('myApp',[])
+
+			.controller('demoCtrl',['$scope',function($scope){
+
+				/*$scope.clickFn = function(){
+
+					$scope.val = "abc";
+
+				}*/
+
+				window.clickFn = function(){
+
+					$scope.val = "123";
+
+					// 通知angularjs 说 js中的数据变了 你来帮我更新一下HTML页面
+					$scope.$apply();
+
+				}
+
+				/*setTimeout(function(){
+
+					$scope.val = "456";
+
+					$scope.$apply();
+
+				},2000)*/
+
+				var xhr = new XMLHttpRequest();
+
+				xhr.open('get','./test.json',true);
+
+				xhr.send();
+
+				xhr.onreadystatechange = function(){
+
+					if(xhr.readyState == 4){
+
+						if(xhr.status == 200){
+
+							$scope.val = xhr.responseText;
+
+							$scope.$apply();
+
+						}
+
+					}
+
+				}
+
+
+
+
+			}])
+	</script>
+</body>
+</html>
