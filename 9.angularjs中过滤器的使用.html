@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs demo</title>
+</head>
+<body ng-app="myApp" ng-controller="demoCtrl">
+	<!--
+		{{ 数据 | 过滤器的名字:参数1:参数2 }}
+
+		currency 货币过滤器
+
+		date 日期格式化过滤器
+
+		filter 过滤数据
+
+			模糊匹配
+				angularjs会去数据中的[每一个字段中]去找 有没有[包含]过滤条件的数据 如果有 留下 如果没有 剔除
+
+			精确匹配
+				angularjs会去数据中的[指定字段中]去找 有没有[包含]过滤条件的数据 如果有 留下 如果没有 剔除
+
+		orderBy 根据字段对数据进行排序
+
+			orderBy:'字段名字' 升序
+			orderBy:'-字段名字' 降序
+
+		limitTo 限制过滤器
+
+		number 数字过滤器
+
+		uppercase 大写
+
+		lowercase 小写
+
+		json 将数据以一个良好的格式展现到页面中 主要用于调试
+
+	-->
+	<p>{{money | currency:'¥' }}</p>
+	<p>{{time | date:'yyyy年MM月dd日 HH时mm分ss秒'}}</p>
+
+	<input type="text" ng-model="val">
+	<ul>
+		<li ng-repeat="item in persons | filter:val ">
+			{{ item.name }} {{ item.age }}
+		</li>
+	</ul>
+
+	<ul>
+		<li ng-repeat="item in persons | filter:{name:'zhangsan'} ">
+			{{ item.name }} {{ item.age }}
+		</li>
+	</ul>
+
+	<ul>
+		<li ng-repeat="item in persons | orderBy:'age' ">
+			{{ item.name }} {{ item.age }}
+		</li>
+	</ul>
+
+	<ul>
+		<li ng-repeat="item in persons | orderBy:'-age' ">
+			{{ item.name }} {{ item.age }}
+		</li>
+	</ul>
+
+	<p>{{word | limitTo:2:1}}</p>
+
+	<ul>
+		<li ng-repeat="item in persons | limitTo:2">
+			{{ item.name }} {{ item.age }}
+		</li>
+	</ul>
+
+	<p>{{num | number:2}}</p>
+
+	<p>{{str | uppercase}}</p>
+
+	<div>
+		<pre>{{persons | json:2}}</pre>
+	</div>
+	<pre>
+	sdfsdfsfdff
+
+	sdfsdf                           sdfs
+	gfg
+	</pre>
+	<script src="node_modules/angular/angular.js"></script>
+	<script>
+		angular.module('myApp',[])
+
+			.controller('demoCtrl',['$scope',function($scope){
+
+				$scope.money = 998;
+
+				$scope.time = new Date();
+
+				$scope.persons = [
+					{
+						name:'zhangsan',
+						age:20
+					},
+					{
+						name:'wangwu',
+						age:10
+					},
+					{
+						name:'lisi',
+						age:10
+					},
+					{
+						name:'zhaosi',
+						age:30
+					},
+					{
+						name:'wangermazi',
+						age:5
+					}
+				]
+
+				$scope.word = "我是好人";
+
+				$scope.num = 98439845435870234;
+
+				$scope.str = "angularjs";
+
+			}])
+	</script>
+</body>
+</html>

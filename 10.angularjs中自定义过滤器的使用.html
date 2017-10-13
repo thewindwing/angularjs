@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs demo</title>
+</head>
+<body ng-app="myApp" ng-controller="demoCtrl">
+	{{ phone | phonestar }}
+	{{ str | firstLetterUppercase:'a':'b' }}
+	<script src="node_modules/angular/angular.js"></script>
+	<script>
+
+		/*
+			自定义过滤器的语法
+			
+				模块对象.filter('过滤器的名字',[function(){
+						
+					return function(value){
+							
+						// value 要进行处理的数据
+						return 处理过后的数据
+
+					}
+
+				}])
+
+		*/
+
+		angular.module('myApp',[])
+
+			.filter('phonestar',[function(){
+
+				return function(value){
+
+					return value.substr(0,3) + '****' + value.substr(7);
+
+				}
+
+			}])
+
+			.filter('firstLetterUppercase',[function(){
+
+				return function(value,arg1,arg2){
+
+					console.log(arg1,arg2)
+
+					return value.substr(0,1).toUpperCase() + value.substr(1)
+
+				}
+
+			}])
+
+			.controller('demoCtrl',['$scope',function($scope){
+
+				$scope.phone = "18598787654";
+
+				$scope.str = "angularjs";
+
+			}])
+	</script>
+</body>
+</html>

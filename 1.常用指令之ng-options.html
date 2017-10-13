@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs demo</title>
+</head>
+<body ng-app="myApp" ng-controller="demoCtrl">
+	<!--
+		ng-options 主要是用来循环下拉列表的 不能单独使用 需要配合ng-model指令一起使用
+
+			ng-options="ball.value as ball.name for ball in balls" 
+
+			ball.name for for固定语法 angularjs会将name字段对应的值放在option标签内
+
+			ball.value as as固定语法 angularjs会将value字段对应的值放在option标签的value属性上
+
+
+		<select>
+			<option value="001">选项1</option>
+			<option value="002">选项2</option>
+		</select>
+	-->
+
+	<select ng-options="ball.value as ball.name for ball in balls" ng-model="abc"></select>
+		
+	{{ abc }}
+	
+	<script src="node_modules/angular/angular.js"></script>
+	<script>
+		angular.module('myApp',[])
+
+			.controller('demoCtrl',['$scope',function($scope){
+
+				$scope.abc = 003;
+
+				$scope.balls = [
+					{
+						name:'篮球',
+						value:001
+					},
+					{
+						name:'足球',
+						value:002
+					},
+					{
+						name:'乒乓球',
+						value:003
+					},
+					{
+						name:'排球',
+						value:004
+					},
+				]
+
+			}])
+	</script>
+</body>
+</html>
