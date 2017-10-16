@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>名单</title>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/angular/angular.js"></script>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.css">
+    <style>
+        li {
+            float: left;
+        }
+
+        body {
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body ng-app='app'>
+<div class="container" ng-controller='maincontainer'>
+    <div class="row">
+        <h1>邀请名单</h1>
+    </div>
+    <div class="row" style="padding-top: 30px;">
+        <div class="col-xs-3">
+            <div class="input-group">
+                  <span class="input-group-addon">
+                      姓名
+                  </span>
+                <input type="text" ng-model="name" class="form-control" placeholder="输入姓名">
+            </div>
+        </div>
+        <div class="col-xs-8">
+            <div class="input-group">
+                  <span class="input-group-addon">
+                      电话
+                  </span>
+                <input type="text" ng-model="phone" class="form-control" placeholder="输入电话">
+            </div>
+        </div>
+        <div class="col-xs-1">
+            <button  class="btn btn-success" ng-click = 'invite()'>邀请</button>
+        </div>
+    </div>
+
+    <div class="row" style="padding-top: 30px;">
+        <a class="btn btn-success btn-xs "  href="#/all">显示全部</a>
+        <a class="btn btn-success btn-xs "  href="#/invite">显示邀请中</a>
+        <a class="btn btn-success btn-xs "  href="#/accept">显示已接受</a>
+        <a class="btn btn-success btn-xs "  href="#/refuse">显示已拒绝</a>
+    </div>
+
+    <div class="row" style="padding-top: 30px;">
+        <table class="table table-bordered">
+            <tr>
+                <th style="width: 50px">id</th>
+                <th style="width: 100px">姓名</th>
+                <th style="width: 150px">电话</th>
+                <th style="width: 100px">状态</th>
+                <th>操作</th>
+
+            </tr>
+            <tr ng-repeat='item in namelist'>
+                <td>{{$index+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.phone}}</td>
+                <td>{{item.state}}</td>
+                <td>
+                    <!--哪种方式好呢？-->
+                    <button  class="btn btn-xs btn-success" ng-click='accept(item)' ng-if='item.state=="邀请中"'>
+                        接受邀请
+                    </button>
+                    <button  class="btn btn-xs btn-danger" ng-click='refuse(item)' ng-if='item.state=="邀请中"'>拒绝邀请
+                    </button>
+                    <button  class="btn btn-xs btn-default" ng-click='delect(item)' >删除</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script>
+
+    var model = [
+        {'name':"张三","phone":"13782237485",'state':"邀请中"},
+        {'name':"李四","phone":"13782237485",'state':"邀请中"},
+    ];
+
+    //先创建模块和控制器
+        var app = angular.module('app',[]);
+        app.controller('maincontainer',['$scope','$location',function($scope,$location){
+
+            $scope.namelist=model;
+
+
+            //添加用户
+            $scope.invite = function(){
+                   var userinfo = {name:$scope.name,phone:$scope.phone,state:'邀请中'};
+                   var isok = true;
+                    //4.1判断用户输入是否为空
+                    if(!$scope.name||!$scope.phone){
+                        isok = false;
+                    }
+                     //4.2 判断手机号是否重复
+                    model.forEach(function(value,index){
+                        isok = isok && !(value.phone == $scope.phone);
+                    })
+                   if(isok){
+                        model.push(userinfo);
+                    }else{
+                        alert('请填入正确数据');
+                    }
+                    $scope.name='';
+                    $scope.phone='';
+            }
+            //删除操作
+            $scope.delect = function(item){
+                model.splice(model.indexOf(item),1);
+            }
+            //同意邀请
+            $scope.accept = function(item){
+                item.state='已接受';
+
+            }           
+             //拒绝邀请
+            $scope.refuse = function(userinfo){
+                userinfo.state = "已拒绝";
+            }
+
+
+            //查（显示操作）
+             $scope.location = $location;
+
+             $scope.$watch('location.path()',function(newValue,oldValue){
+                    switch(newValue){
+                        case '/all':
+                             $scope.namelist = model;
+                             break;
+                        case '/invite':
+                            $scope.namelist = model.filter(function(value){
+                                return value.state == "邀请中";
+                            });
+                            break;
+                        case '/accept':
+                            $scope.namelist = model.filter(function(value){
+                                return value.state == "已接受";
+                            });
+                            break;
+                        case '/refuse':
+                            $scope.namelist = model.filter(function(value){
+                                alert(5);
+                                return value.state == "已拒绝";
+                            });
+                            break;
+                    }
+        })
+            
+
+         
+
+            
+            
+
+        }])
+
+    
+    
+
+</script>
+</body>
+</html>

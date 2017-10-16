@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+    	<script>
+    		var model = [
+		        {'name':"张三","phone":"13782237485",'state':"邀请中"},
+		        {'name':"李四","phone":"13782237485",'state':"已接受"}
+    		];
+    		var hehe = model.filter(function(index) {
+    			return index.state=='邀请中';
+    		});
+    		console.log(hehe);
+    	</script>
+    </body>
+</html>

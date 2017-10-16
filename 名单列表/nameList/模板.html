@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>名单</title>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/angular/angular.js"></script>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.css">
+    <style>
+        li {
+            float: left;
+        }
+
+        body {
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <h1>邀请名单</h1>
+    </div>
+    <div class="row" style="padding-top: 30px;">
+        <div class="col-xs-3">
+            <div class="input-group">
+                  <span class="input-group-addon">
+                      姓名
+                  </span>
+                <input type="text" ng-model="name" class="form-control" placeholder="输入姓名">
+            </div>
+        </div>
+        <div class="col-xs-8">
+            <div class="input-group">
+                  <span class="input-group-addon">
+                      电话
+                  </span>
+                <input type="text" ng-model="phone" class="form-control" placeholder="输入电话">
+            </div>
+        </div>
+        <div class="col-xs-1">
+            <button  class="btn btn-success">邀请</button>
+        </div>
+    </div>
+
+    <div class="row" style="padding-top: 30px;">
+         <a class="btn btn-success btn-xs "  href="#/all">显示全部</a>
+        <a class="btn btn-success btn-xs "  href="#/invite">显示邀请中</a>
+        <a class="btn btn-success btn-xs "  href="#/accept">显示已接受</a>
+        <a class="btn btn-success btn-xs "  href="#/refuse">显示已拒绝</a>
+    </div>
+
+    <div class="row" style="padding-top: 30px;">
+        <table class="table table-bordered">
+            <tr>
+                <th style="width: 50px">id</th>
+                <th style="width: 100px">姓名</th>
+                <th style="width: 150px">电话</th>
+                <th style="width: 100px">状态</th>
+                <th>操作</th>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <!--哪种方式好呢？-->
+                    <button  class="btn btn-xs btn-success">
+                        接受邀请
+                    </button>
+                    <button  class="btn btn-xs btn-danger">拒绝邀请
+                    </button>
+                    <button  class="btn btn-xs btn-default">删除</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script>
+
+    var model = [
+        {'name':"张三","phone":"13782237485",'state':"邀请中"},
+        {'name':"李四","phone":"13782237485",'state':"已接受"},
+    ];
+
+    //先创建模块和控制器
+
+</script>
+</body>
+</html>
